@@ -1,31 +1,28 @@
-import {Button, Col, Image, Nav, Row} from "react-bootstrap";
+import {jwtdecode} from "jwt-decode";
+import {useEffect} from "react";
+import {Button, Col, Image, Nav, Row, Spinner} from "react-bootstrap";
+import {useDispatch, useSelector} from "react-redux";
 import ProfilePostCard from "./ProfilePostCard";
+import {fetchPostsByUser} from "../features/posts/postsSlice";
 import PROFILE_IMG from '../assets/Joy-InsideOut.jpg'
-import {jwtDecode} from "jwt-decode";
-import {useEffect, useState} from "react";
+
 
 export default function ProfileMidBody() {
-    const [posts, setPosts]=useState([]);
     const url=
     "https://pbs.twimg.com/profile_banners/83072625/1602845571/1500x500";
 
-const fetchPosts=(userID)=>{
-    fetch(
-        `https://ab4abb9c-ad0f-40a9-92e4-1ddb84fa8a30-00-3je3dj44orsgp.sisko.replit.dev/posts/user/${userID}`
-    )
-    .then((response)=>response.json())
-    .then((data)=>setPosts(data))
-    .catch((error)=>console.error("Error:",error));
-};
+const dispatch=useDispatch()
+const posts=useSelector(store=>store.posts.posts)
+const loading=useSelector(store=>store.posts.loading)
 
 useEffect(()=>{
     const token=localStorage.getItem("authToken");
     if (token) {
-        const decodedToken=jwtDecode(token);
+        const decodedToken= jwtdecode(token);
         const userId=decodedToken.id;
-        fetchPosts(userId);
+        dispatch(fetchPostsByUser(userId));
     }
-},[]);
+},[dispatch]);
 
 return (
     <Col sm={6} className="bg-light" style={{ border: "1px solid lightgrey" }}>
@@ -88,9 +85,16 @@ return (
         </Nav.Item>
 
         </Nav>
-        {posts.length>0&&posts.map((post)=>(
-            <ProfilePostCard key={post.id} content={post.content} postId={post.id}/>
+        {loading&&(
+            <Spinner animation="border" className="ms-3 mt-3" variant="primary"/>
+        )}
+        {posts.map((post) => (
+            <ProfilePostCard
+            key={post.id}
+            content={post.content}
+            postId={post.id}
+            />
         ))}
     </Col>
-)
+);
 }
