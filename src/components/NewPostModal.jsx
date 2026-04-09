@@ -15,26 +15,26 @@ export default function NewPostModal({ show, handleClose }) {
         setPostContent("");
     };
 
-    const token = localStorage.getItem("authToken");
+    //const token = localStorage.getItem("authToken");
 
-    const decode = jwtDecode(token);
-    const userId = decode.id
+    // const decode = jwtDecode(token);
+    // const userId = decode.id
 
-    const data = {
-        title: "Post Title",
-        content: postContent,
-        user_id: userId,
-    };
+    // const data = {
+    //     title: "Post Title",
+    //     content: postContent,
+    //     user_id: userId,
+    // };
 
-    axios
-        .post("https://ab4abb9c-ad0f-40a9-92e4-1ddb84fa8a30-00-3je3dj44orsgp.sisko.replit.dev/posts", data)
-        .then((response) => {
-            console.log("Success:", response.data);
-            handleClose();
-        })
-        .catch((error) => {
-            console.error("Error", error);
-        });
+    // axios
+    //     .post("https://ab4abb9c-ad0f-40a9-92e4-1ddb84fa8a30-00-3je3dj44orsgp.sisko.replit.dev/posts", data)
+    //     .then((response) => {
+    //         console.log("Success:", response.data);
+    //         handleClose();
+    //     })
+    //     .catch((error) => {
+    //         console.error("Error", error);
+    //     });
 
     return (
         <>
