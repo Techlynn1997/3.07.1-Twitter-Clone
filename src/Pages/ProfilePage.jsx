@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import {Container, Row} from "react-bootstrap"
-import {useNavigate} from "react-router-dom";
+import { Container, Row } from "react-bootstrap"
+import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "usehooks-ts";
 import ProfileSideBar from "../components/ProfileSideBar";
 import ProfileMidBody from "../components/ProfileMidBody";
@@ -23,8 +23,8 @@ export default function ProfilePage() {
         <>
             <Container>
                 <Row>
-                    <ProfileSideBar handleLogout={handleLogout}/>
-                    <ProfileMidBody/>
+                    <ProfileSideBar handleLogout={handleLogout} />
+                    <ProfileMidBody />
                 </Row>
             </Container>
         </>

@@ -1,8 +1,8 @@
 import { Col, Image, Row, Button, Modal, Form } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import {useLocalStorage} from 'usehooks-ts';
-import {useNavigate} from "react-router-dom";
+import { useLocalStorage } from 'usehooks-ts';
+import { useNavigate } from "react-router-dom";
 
 export default function Authpage() {
     const loginImage = "https://sig1.co/img-twitter-1";
@@ -14,11 +14,11 @@ export default function Authpage() {
     const handleShowLogin = () => setModalShow("Login");
     const [email, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [authToken, setAuthToken]=useLocalStorage("authToken","");
+    const [authToken, setAuthToken] = useLocalStorage("authToken", "");
 
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
-    useEffect(()=> {
+    useEffect(() => {
         if (authToken) {
             navigate("/profile");
         }
@@ -39,7 +39,7 @@ export default function Authpage() {
         e.preventDefault();
         try {
             const res = await axios.post(`${url}/login`, { email, password });
-            if (res.data && res.data.auth===true&&res.data.token){
+            if (res.data && res.data.auth === true && res.data.token) {
                 setAuthToken(res.data.token);
                 console.log("Login was successful, token saved");
             }
@@ -60,7 +60,7 @@ export default function Authpage() {
                 <h2 className="my-5" style={{ fontSize: 31 }}>Join Twitter Today.</h2>
 
                 <Col sm={5} className="d-grid gap-2">
-                    <Button className="rounded-pill" variant="outline-dark"> 
+                    <Button className="rounded-pill" variant="outline-dark">
                         <i className="bi bi-google"></i>Sign up with Google
                     </Button>
                     <Button className="rounded-pill" variant="outline-dark">
